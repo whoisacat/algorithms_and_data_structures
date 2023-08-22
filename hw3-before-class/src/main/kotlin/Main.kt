@@ -6,7 +6,7 @@ import java.math.RoundingMode
 fun main(args: Array<String>) {
     println(power(BigDecimal(1.001), 1000))
     println(fibonachy(100))
-//    println(isSimple(655360001))
+    println(isSimple(655360001) == 0)
 }
 
 fun fibonachy(i: Int): BigInteger {
@@ -14,7 +14,7 @@ fun fibonachy(i: Int): BigInteger {
     var f = BigInteger.ZERO
     var s = BigInteger.ONE
     var res = BigInteger.ZERO
-    for (k in 3..i) {
+    for (k in 3..i + 1) {
         res = f + s
         f = s
         s = res
@@ -27,7 +27,6 @@ fun isSimple(i: Int): Int {
     if (i % 2 == 0) return 2
     for (k in i - 2 downTo  2 step 2) {
         if (i % k == 0) return k
-        println(k)
     }
     return res
 }
@@ -37,7 +36,6 @@ fun power(number: BigDecimal, power: Int): BigDecimal {
     val mc = MathContext(100, RoundingMode.HALF_UP)
     var result = number
     for (i in 2..power) {
-        println(i)
         result = result.multiply(number, mc)
     }
     return result
