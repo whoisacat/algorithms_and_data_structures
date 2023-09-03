@@ -9,7 +9,7 @@ import kotlin.test.assertEquals
 fun main() {
     val latestSuffix = 6
     val numberOfDigitsInString = 7
-    var methodNameLength = 14
+    val methodNameLength = 14
     print("%${methodNameLength}s".format("метод"))
     var i = 100
     while (i <= 10_000_000) {
@@ -40,7 +40,7 @@ fun main() {
 }
 
 private fun printMeasurements(measurements: Array<Long>, methodName: String, numberOfDigitsInString: Int) {
-    println("$methodName|)${measurements.asList().stream().map { "%${numberOfDigitsInString}d".format(it) }.collect(Collectors.joining("|"))}")
+    println("$methodName|${measurements.asList().stream().map { "%${numberOfDigitsInString}d".format(it) }.collect(Collectors.joining("|"))}")
 }
 
 class FileSourcedArraysTester {
