@@ -3,7 +3,7 @@ plugins {
     id 'application'
 }
 
-group = 'com.whoisacat.edu.otus.algoriths.dynamicarrays'
+group = 'ru.otus.algorithms.dynamicarrays'
 version = '1.0-SNAPSHOT'
 
 repositories {
