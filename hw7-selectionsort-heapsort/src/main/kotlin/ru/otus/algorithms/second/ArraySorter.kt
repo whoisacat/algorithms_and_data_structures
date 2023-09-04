@@ -95,6 +95,37 @@ class ArraySorter(private val array: Array<Int>) {
             if (array[i] > array[max]) max = i
         return max
     }
+
+    fun heapSort() {
+        for (root in array.size / 2 - 1 downTo 0) {
+            heapify(root, array.size)
+        }
+        for (j in array.size - 1 downTo 1) {
+            swap(0, j)
+            heapify(0, j)
+        }
+
+    }
+
+    private fun heapify(root: Int, size: Int) {
+        val max = findMaxInHeap(root, size)
+        if (root == max) return
+        swap(max, root)
+        heapify(max, size)
+    }
+
+    private fun findMaxInHeap(root: Int, size: Int): Int {
+        var max = root
+        var child = leftChild(root)
+        if (child < size && array[max] < array[child]) max = child
+        child++
+        if (child < size && array[max] < array[child]) max = child
+        return max
+    }
+
+    private fun leftChild(i: Int): Int {
+        return 2 * i + 1
+    }
 }
 
 infix fun IntRange.step(next: (Int) -> Int) =
