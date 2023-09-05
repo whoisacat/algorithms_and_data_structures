@@ -1,0 +1,33 @@
+       метод и массив|    100|   1000|  10000| 100000|1000000|10000000
+        bubble random|     16|     55|   2643| 133477|      0|      0
+        bubble digits|      0|      5|    618|  66561|      0|      0
+        bubble sorted|      1|      3|    302|  72085|      0|      0
+        bubble revers|      0|      6|    688| 153759|      0|      0
+     bubbleOpt random|      1|     17|    664| 129756|      0|      0
+     bubbleOpt digits|      0|      5|    641|  65658|      0|      0
+     bubbleOpt sorted|      0|      4|    359|  75930|      0|      0
+     bubbleOpt revers|      0|      7|    767| 148946|      0|      0
+     insertion random|      1|     11|    352|  67873|9023972|      0
+     insertion digits|      0|      4|    326|  32273|7312049|      0
+     insertion sorted|      0|      0|      9|   2744| 232844|      0
+     insertion revers|      1|      7|  1419| 147553|18062152|      0
+insertionShift random|      0|     15|    127|  27612|7130891|      0
+insertionShift digits|      1|      1|    150|  13138|3360975|      0
+insertionShift sorted|      0|      0|      4|    373| 103023|      0
+insertionShift revers|      0|      2|    209|  23842|7606224|      0
+insShiftBinary random|      1|     41|    327|  19733|3651386|      0
+insShiftBinary digits|      0|      3|    146|  10664|3297069|      0
+insShiftBinary sorted|      0|      1|      9|    399|  95180|      0
+insShiftBinary revers|      5|      4|    294|  20560|7312594|      0
+         shell random|     61|     12|     15|    196|   3006|  60475
+         shell digits|      0|      0|      4|     48|    468|   3423
+         shell sorted|      0|      0|      3|     80|   1578|  32835
+         shell revers|      0|      0|      1|     33|    885|  13080
+     selection random|      1|     24|    143|  21431|4855424|      0
+     selection digits|      0|      1|    162|  12977|1275921|      0
+     selection sorted|      0|      1|    153|  13126|1838747|      0
+     selection revers|      0|      1|    155|  12745|1516173|      0
+          heap random|      1|     13|     18|    253|   2104|  61751
+          heap digits|      0|      0|     11|     36|    856|   8182
+          heap sorted|      0|      1|      4|     54|   1328|  18441
+          heap revers|      0|      0|     11|    489|   1424|  16483
