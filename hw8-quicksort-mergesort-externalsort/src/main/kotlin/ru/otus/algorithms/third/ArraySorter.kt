@@ -1,5 +1,7 @@
 package ru.otus.algorithms.third
 
+import java.io.File
+
 class ArraySorter(private val array: Array<Int>) {
 
     fun bubbleSort() {
@@ -163,6 +165,63 @@ class ArraySorter(private val array: Array<Int>) {
         while (a <= middle) copy[c++] = array[a++]
         while (b <= right) copy[c++] = array[b++]
         System.arraycopy(copy, 0, array, left, copy.size)
+    }
+
+    fun externalSortWithTFilesAndMerge(t: Int) {
+        var fileSuffix = 0
+        val tools = Array(t) {
+            ArrayFilesUtilities(File("./out${++fileSuffix}.txt").absolutePath)
+        }
+        val counters = Array(t) {0}
+        var copyStart = 0
+        for (j in 1 .. t) {
+            val copy = Array(calcSize(t, j)) {0}
+            System.arraycopy(array, copyStart, copy, 0, copy.size)
+            copyStart +=copy.size
+            val sorter = ArraySorter(copy)
+            sorter.quickSort()
+            tools[j - 1].write(sorter.array)
+            counters[j - 1] += copy.size
+        }
+        val buffer = Array<Int?>(t) {null}
+        fillBuffer(buffer, counters, tools)
+        for (i in array.indices) {
+            array[i] = buffer[lessIn(buffer)]!!
+            buffer[lessIn(buffer)] = null
+            fillBuffer(buffer, counters, tools)
+        }
+    }
+
+    private fun lessIn(buffer: Array<Int?>): Int {
+        var max = 0
+        for (i in 1 until buffer.size) {
+            if (buffer[max] == null) {
+                max = i
+                continue
+            }
+            if (buffer[i] != null && buffer[max]!! > buffer[i]!!)
+                max = i
+        }
+        return max
+    }
+
+    private fun calcSize(countOfFiles: Int, arrayNumber: Int): Int {
+        return if (array.size % countOfFiles != 0) {
+            if (arrayNumber < countOfFiles) array.size / countOfFiles + 1
+            else array.size - (arrayNumber - 1) * (array.size / countOfFiles + 1)
+        } else array.size / countOfFiles
+    }
+
+    private fun fillBuffer(
+        buffer: Array<Int?>,
+        counters: Array<Int>,
+        tools: Array<ArrayFilesUtilities>
+    ) {
+        for (i in buffer.indices) {
+            if (buffer[i] == null && counters[i] > 0) {
+                buffer[i] = tools[i].getNextNumber(counters[i]--)
+            }
+        }
     }
 }
 

@@ -8,7 +8,7 @@ import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 
 fun main() {
-    val latestSuffix = 7
+    val latestSuffix = 5
     val numberOfDigitsInString = 7
     val methodNameLength = 21
     print("%${methodNameLength}s".format("метод и массив"))
@@ -20,21 +20,25 @@ fun main() {
     println()
     val prefix = "hw8-quicksort-mergesort-externalsort/"
     var measurements: Array<Long>
-    measurements = FileSourcedArraysTester().test("0.random", "shellSort",
+    measurements = FileSourcedArraysTester().test("0.random", "externalSortWithTFilesAndMerge",
         firstSuffix = 2, latestSuffix = latestSuffix, prefix = prefix)
-    printMeasurements(measurements, "%${methodNameLength}s".format("shell random"), numberOfDigitsInString)
+    printMeasurements(measurements, "%${methodNameLength}s".format("external random"), numberOfDigitsInString)
 
-    measurements = FileSourcedArraysTester().test("0.random", "heapSort",
+    measurements = FileSourcedArraysTester().test("0.random", "selectSort",
         firstSuffix = 2, latestSuffix = latestSuffix, prefix = prefix)
-    printMeasurements(measurements, "%${methodNameLength}s".format("heap random"), numberOfDigitsInString)
+    printMeasurements(measurements, "%${methodNameLength}s".format("select random"), numberOfDigitsInString)
 
-    measurements = FileSourcedArraysTester().test("0.random", "quickSort",
-        firstSuffix = 2, latestSuffix = latestSuffix, prefix = prefix)
-    printMeasurements(measurements, "%${methodNameLength}s".format("quick random"), numberOfDigitsInString)
-
-    measurements = FileSourcedArraysTester().test("0.random", "mergeSort",
-        firstSuffix = 2, latestSuffix = latestSuffix, prefix = prefix)
-    printMeasurements(measurements, "%${methodNameLength}s".format("merge random"), numberOfDigitsInString)
+//    measurements = FileSourcedArraysTester().test("0.random", "heapSort",
+//        firstSuffix = 2, latestSuffix = latestSuffix, prefix = prefix)
+//    printMeasurements(measurements, "%${methodNameLength}s".format("heap random"), numberOfDigitsInString)
+//
+//    measurements = FileSourcedArraysTester().test("0.random", "quickSort",
+//        firstSuffix = 2, latestSuffix = latestSuffix, prefix = prefix)
+//    printMeasurements(measurements, "%${methodNameLength}s".format("quick random"), numberOfDigitsInString)
+//
+//    measurements = FileSourcedArraysTester().test("0.random", "mergeSort",
+//        firstSuffix = 2, latestSuffix = latestSuffix, prefix = prefix)
+//    printMeasurements(measurements, "%${methodNameLength}s".format("merge random"), numberOfDigitsInString)
 }
 
 private fun printMeasurements(measurements: Array<Long>, methodName: String, numberOfDigitsInString: Int) {
@@ -103,8 +107,10 @@ class FileSourcedArraysTester {
 
     private fun invokeSorting(methodName: String, sorter: ArraySorter) {
         if (methodName.equals("shellSort")) sorter.shellSort()
+        if (methodName.equals("selectSort")) sorter.selectionSort()
         if (methodName.equals("heapSort")) sorter.heapSort()
         if (methodName.equals("quickSort")) sorter.quickSort()
         if (methodName.equals("mergeSort")) sorter.mergeSort()
+        if (methodName.contains("externalSortWithTFilesAndMerge")) sorter.externalSortWithTFilesAndMerge(8)
     }
 }
