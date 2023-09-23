@@ -1,4 +1,6 @@
-package ru.otus.algorithms.bst.simple
+package ru.otus.algorithms.bst
+
+import ru.otus.algorithms.bst.simple.BinarySearchTreeSimple
 
 fun main(args: Array<String>) {
 

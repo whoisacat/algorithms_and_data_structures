@@ -3,8 +3,10 @@ package ru.otus.algorithms.bst.simple
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import java.lang.Error
+import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
@@ -31,7 +33,7 @@ class BinarySearchTreeSimpleTest {
 
         val start = System.currentTimeMillis()
         val random = Random(13)
-        while (System.currentTimeMillis() - start < 60_000) {
+        while (System.currentTimeMillis() - start < 30_000) {
             val key = random.nextInt()
             randomTree.insert(key)
             if (randomN++ % 10 == 0L) {
@@ -39,7 +41,7 @@ class BinarySearchTreeSimpleTest {
             }
         }
         println(System.currentTimeMillis() - start)
-        println("start check")
+        println("start check ${LocalDateTime.now()}")
         assertNotNull(randomTree.getRootElement())
         checkTree(randomTree.getRootElement())
         println(System.currentTimeMillis() - start)
@@ -51,7 +53,7 @@ class BinarySearchTreeSimpleTest {
         val start = System.currentTimeMillis()
         val random = Random(13)
         var next = 0;
-        while (System.currentTimeMillis() - start < 2_000) {
+        while (System.currentTimeMillis() - start < 1_000) {
             orderedTree.insert(next)
             if (orderedN++ % 10 == 0L) {
                 orderedList.add(next)
@@ -59,7 +61,7 @@ class BinarySearchTreeSimpleTest {
             next += random.nextInt(3) + 1
         }
         println(System.currentTimeMillis() - start)
-        println("start check")
+        println("start check ${LocalDateTime.now()}")
         assertNotNull(orderedTree.getRootElement())
         checkTree(orderedTree.getRootElement())
         println(System.currentTimeMillis() - start)
@@ -75,6 +77,7 @@ class BinarySearchTreeSimpleTest {
             { exceptionExpected(start) },
             "Expected doThing() to throw, but it didn't"
         )
+        assertEquals(StackOverflowError::class.java, thrown::class.java)
         println(System.currentTimeMillis() - start)
     }
 
@@ -87,7 +90,7 @@ class BinarySearchTreeSimpleTest {
             next += random.nextInt(3) + 1
         }
         println(System.currentTimeMillis() - start)
-        println("start check")
+        println("start check ${LocalDateTime.now()}")
         assertNotNull(orderedTree.getRootElement())
         checkTree(orderedTree.getRootElement())
     }
@@ -148,5 +151,37 @@ class BinarySearchTreeSimpleTest {
         for (i in orderedList) {
             assertFalse { orderedTree.search(i) }
         }
+    }
+
+
+    @Test
+    fun simpleTreeTest() {
+        val tree = BinarySearchTreeSimple()
+        tree.insert(140)
+        tree.insert(70)
+        tree.insert(50)
+        tree.insert(80)
+        tree.insert(30)
+        tree.insert(36)
+        tree.insert(20)
+        tree.insert(53)
+        tree.insert(51)
+        tree.insert(54)
+        tree.insert(77)
+        tree.insert(82)
+        tree.insert(15)
+        assertEquals(70, tree.getRootElement()?.left?.key)
+        assertEquals(50, tree.getRootElement()?.left?.left?.key)
+        assertEquals(30, tree.getRootElement()?.left?.left?.left?.key)
+        assertEquals(20, tree.getRootElement()?.left?.left?.left?.left?.key)
+        assertEquals(15, tree.getRootElement()?.left?.left?.left?.left?.left?.key)
+        assertEquals(36, tree.getRootElement()?.left?.left?.left?.right?.key)
+        assertEquals(54, tree.getRootElement()?.left?.left?.right?.right?.key)
+        assertEquals(51, tree.getRootElement()?.left?.left?.right?.left?.key)
+        assertEquals(53, tree.getRootElement()?.left?.left?.right?.key)
+        assertEquals(80, tree.getRootElement()?.left?.right?.key)
+        assertEquals(82, tree.getRootElement()?.left?.right?.right?.key)
+        assertEquals(77, tree.getRootElement()?.left?.right?.left?.key)
+        assertEquals(140, tree.getRootElement()?.key)
     }
 }

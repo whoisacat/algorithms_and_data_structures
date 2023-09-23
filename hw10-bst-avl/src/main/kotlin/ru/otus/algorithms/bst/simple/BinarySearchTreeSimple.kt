@@ -38,8 +38,8 @@ class BinarySearchTreeSimple() {
         if (key < node.key) return remove(key, node.left)
         if (key > node.key) return remove(key, node.right)
         if (node.left == null && node.right == null) makeNull(node)
-        if (node.left == null && node.right != null || node.left != null && node.right == node)
-            makeNode(node)
+        if (node.left == null && node.right != null
+            || node.left != null && node.right == node) makeNode(node)
         makeMaxLeft(node)
     }
 
@@ -58,7 +58,7 @@ class BinarySearchTreeSimple() {
 
     private fun makeNode(node_: Node) {
         var node = node_
-        node = node_.left?:node.right ?: throw Exception("right must not be null after checking on null")
+        node = node_.left?:node_.right ?: throw Exception("right must not be null after checking on null")
     }
 
     private fun makeNull(node_: Node?) {
