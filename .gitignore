@@ -3,6 +3,7 @@
 /.idea/
 /*/.idea/
 /*/.gradle/
+/*/.gradle/**
 /*/build/
 /*/out/
 /hw3-algebraic-algorithms/.gradle/
