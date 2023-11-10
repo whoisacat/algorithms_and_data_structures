@@ -56,8 +56,7 @@ open class LinearProbingHashTable<K, V> (
         return item.value
     }
 
-    private fun getBucketNumber(key: K, i: Int): Int {
-        val hashCode = key.hashCode()
+    private fun getBucketNumber(hashCode: Int, i: Int): Int {
         return ((if (hashCode < 0) hashCode * -1 else hashCode) % items.size + i) % items.size
     }
 
@@ -69,11 +68,10 @@ open class LinearProbingHashTable<K, V> (
     private fun findItemIndex(key: K): Int {
         var i = 0
         var idx: Int
+        val hashCode = key.hashCode()
         do {
-            idx = getBucketNumber(key, i++)
+            idx = getBucketNumber(hashCode, i++)
         } while (i < maxCollisions && items[idx] != null && items[idx]?.key != key)
-        // todo Не кажется ли вам, что постоянный вызов (и расчёт!) хэш-функции внутри этого цикла снижает эффективность?
-        // Придумайте вариант оптимизации, который бы также расчитывал функцию пробинга, но делал это без лишних расчётов хэш-функций ключа. Хотя, может котлин это оптимизирует, не знаю. Жду ответа.
         return idx
     }
 
