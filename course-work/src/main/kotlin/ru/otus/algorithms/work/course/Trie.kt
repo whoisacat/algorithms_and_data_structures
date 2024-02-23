@@ -29,7 +29,7 @@ class Trie(): Table<String, Int>  {
     }
 
     fun getNextLetterWordsInDepth(depth: Byte): Array<String> {
-        if (depth > 5) throw RuntimeException("max depth is 5")
+        if (depth > 6) throw RuntimeException("max depth is 6")
         if (depth < 1) throw RuntimeException("min depth is 1")
         var array: Array<String> = arrayOf("")
         for (i in 0 .. depth) {
