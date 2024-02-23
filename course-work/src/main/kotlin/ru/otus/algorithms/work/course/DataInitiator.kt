@@ -5,6 +5,10 @@ import java.io.FileReader
 import java.io.FileWriter
 import java.nio.charset.Charset
 
+const val resourcesPath = "./course-work/src/main/resources/"
+const val referentialBookPath = "${resourcesPath}init-data.txt"
+const val referentialBookSeparator = ","
+
 fun main() {
     val file = File("./course-work/src/main/resources/book.txt")
     val reader = FileReader(file, Charset.forName("Windows-1251"))
@@ -27,10 +31,10 @@ fun main() {
     println("${nextLetterWordsInDepth.size} ${nextLetterWordsInDepth.joinToString(",")}")
     val nextLetterWordsInDepth6 = trie.getNextLetterWordsInDepth(6)
     println("${nextLetterWordsInDepth6.size} ${nextLetterWordsInDepth6.joinToString(",")}")
-    val initialDataFile = File("./course-work/src/main/resources/init-data.txt")
+    val initialDataFile = File(referentialBookPath)
     initialDataFile.createNewFile()
     val writer = FileWriter(initialDataFile)
-    writer.write(nextLetterWordsInDepth6.joinToString(","))
+    writer.write(nextLetterWordsInDepth6.joinToString(referentialBookSeparator))
     writer.close()
     println("length ${initialDataFile.length()}")
 

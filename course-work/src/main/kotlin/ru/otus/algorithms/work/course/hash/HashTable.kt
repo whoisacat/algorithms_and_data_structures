@@ -9,7 +9,7 @@ import java.util.stream.Collectors
 open class HashTable<K, V>(private val maxLoadFactor: Double = 0.75, private val minLoadFactor: Double = 0.2) {
 
 
-    private var loadFactor: Double = 0.0;
+    private var loadFactor: Double = 0.0
     private var buckets: Array<HashTableNode<K, V>?> = Array(2) {null}
     private var size: Int = 0
 
@@ -17,14 +17,14 @@ open class HashTable<K, V>(private val maxLoadFactor: Double = 0.75, private val
         if (minLoadFactor >= maxLoadFactor) throw Exception("min load factor mast be less then max load factor")
     }
     fun size(): Int {
-        return this.size;
+        return this.size
     }
 
     operator fun set(key: K, value: V) {
         put(key, value)
     }
 
-    fun put(key: K, value: V): V {
+    open fun put(key: K, value: V): V {
         if (!this.contains(key)) {
             if (loadFactor > maxLoadFactor)
                 rehash()
@@ -63,7 +63,7 @@ open class HashTable<K, V>(private val maxLoadFactor: Double = 0.75, private val
         return key.hashCode()
     }
 
-    operator fun get(key: K): V? {
+    open operator fun get(key: K): V? {
         val bucket = getBucketNumber(key)
         var hashTableNode: HashTableNode<K, V> = buckets[bucket] ?: return null
         while (hashTableNode.key != key && hashTableNode.next != null) hashTableNode = hashTableNode.next!!
@@ -77,7 +77,7 @@ open class HashTable<K, V>(private val maxLoadFactor: Double = 0.75, private val
         return hashTableNode.key?.equals(key) ?: false
     }
 
-    fun delete(key: K) {
+    open fun delete(key: K) {
         if (!contains(key)) throw NoSuchElementException()
         val bucket = getBucketNumber(key)
         if (buckets[bucket]!!.key!! == key) {
@@ -129,19 +129,29 @@ open class HashTable<K, V>(private val maxLoadFactor: Double = 0.75, private val
                 "${buckets.asList().stream().filter { it != null }.map { it.toString() }.collect(Collectors.joining(", "))}}"
     }
 
-    fun flatContent(): List<V> {
-        val content = ArrayList<V>()
+    fun valueContent(): List<V> {
+        return content { it.value }
+    }
+
+    private fun <D> content(invocation: (HashTableNode<K, V>) -> D): List<D> {
+        val content = ArrayList<D>()
         for (node in buckets) {
             if (node?.value != null) {
-                content.add(node.value)
+                content.add(invocation.invoke(node))
             }
             var next = node?.next
             while (next != null) {
-                content.add(next.value)
+                content.add(invocation.invoke(next))
                 next = next.next
             }
         }
         return content
+    }
+
+    data class KeyValue<K, V>(val key: K, val value: V)
+
+    fun keyValueContent(): List<KeyValue<K, V>> {
+        return content { KeyValue(it.key, it.value) }
     }
 }
 

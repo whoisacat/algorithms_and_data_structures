@@ -6,6 +6,10 @@ import java.util.function.Supplier
 
 class Trie(): Table<String, Int>  {
 
+    companion object {
+        const val MAX_DEPTH: Byte = 6
+    }
+
     private var root: Node = Node()
     private var size = 0
 
@@ -20,7 +24,7 @@ class Trie(): Table<String, Int>  {
         val node = findNode(keyword)
         val factorArray = FactorArray(4)
         if (node.isValuable) factorArray.add(keyword)
-        for (child in node.children.flatContent()) {
+        for (child in node.children.valueContent()) {
             if (child?.word != null) factorArray.add(child.word!!)
         }
         val content = factorArray.getContent()
@@ -29,7 +33,7 @@ class Trie(): Table<String, Int>  {
     }
 
     fun getNextLetterWordsInDepth(depth: Byte): Array<String> {
-        if (depth > 6) throw RuntimeException("max depth is 6")
+        if (depth > MAX_DEPTH) throw RuntimeException("max depth is $MAX_DEPTH")
         if (depth < 1) throw RuntimeException("min depth is 1")
         var array: Array<String> = arrayOf("")
         for (i in 0 .. depth) {
