@@ -2,7 +2,9 @@ package ru.otus.algorithms.work.course.hash
 
 import javax.naming.OperationNotSupportedException
 
-class LRUCache<K, V>(val cacheSize: Int = 10): HashTable<K, LRUCache.CacheValue<V>>(maxLoadFactor = 1.0, minLoadFactor = 1 / cacheSize.toDouble()) {
+class OrderedLRUCache<K, V>(val cacheSize: Int = 10):
+        HashTable<K, OrderedLRUCache.CacheValue<V>>(maxLoadFactor = 1.0, minLoadFactor = 1 / cacheSize.toDouble()),
+        Cache<K, V> {
 
     data class CacheValue<CV>(var order: Int, val value: CV)
 
@@ -28,7 +30,7 @@ class LRUCache<K, V>(val cacheSize: Int = 10): HashTable<K, LRUCache.CacheValue<
         return value
     }
 
-    @Synchronized fun put(key: K, value: V): V {
+    @Synchronized override fun cache(key: K, value: V): V {
         if (!contains(key)) {
             if (size() == cacheSize) {
                 this.delete(oldestOne!!)
@@ -49,5 +51,9 @@ class LRUCache<K, V>(val cacheSize: Int = 10): HashTable<K, LRUCache.CacheValue<
             super.get(key)!!.order = 1
         }
         return value
+    }
+
+    override fun find(key: K): V? {
+        return get(key)?.value
     }
 }

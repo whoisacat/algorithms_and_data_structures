@@ -10,8 +10,8 @@ const val referentialBookPath = "${resourcesPath}init-data.txt"
 const val referentialBookSeparator = ","
 
 fun main() {
-    val file = File("./course-work/src/main/resources/book.txt")
-    val reader = FileReader(file, Charset.forName("Windows-1251"))
+    val file = File("./course-work/src/main/resources/dictionary.txt")
+    val reader = FileReader(file, Charset.forName("UTF-8"))//Windows-1251
     val trie = Trie()
     reader.readLines().stream()
         .flatMap { it.split("\\p{Punct}+".toRegex()).stream() }
@@ -28,13 +28,13 @@ fun main() {
     val nextLetterWords = trie.getNextLetterWords()
     println("${nextLetterWords.size} ${nextLetterWords.joinToString(",")}")
     val nextLetterWordsInDepth = trie.getNextLetterWordsInDepth(5)
-    println("${nextLetterWordsInDepth.size} ${nextLetterWordsInDepth.joinToString(",")}")
+    println("${nextLetterWordsInDepth.size} ${nextLetterWordsInDepth.joinToString(",")}")//160356
     val nextLetterWordsInDepth6 = trie.getNextLetterWordsInDepth(6)
-    println("${nextLetterWordsInDepth6.size} ${nextLetterWordsInDepth6.joinToString(",")}")
+    println("${nextLetterWordsInDepth6.size} ${nextLetterWordsInDepth6.joinToString(",")}")//238848
     val initialDataFile = File(referentialBookPath)
     initialDataFile.createNewFile()
     val writer = FileWriter(initialDataFile)
-    writer.write(nextLetterWordsInDepth6.joinToString(referentialBookSeparator))
+    writer.write(nextLetterWordsInDepth.joinToString(referentialBookSeparator))
     writer.close()
     println("length ${initialDataFile.length()}")
 

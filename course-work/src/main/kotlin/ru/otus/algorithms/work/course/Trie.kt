@@ -4,14 +4,13 @@ import ru.otus.algorithms.work.course.hash.HashTable
 import java.lang.RuntimeException
 import java.util.function.Supplier
 
-class Trie(): Table<String, Int>  {
+data class Trie(private var size: Int = 0, private var root: Node = Node()): Table<String, Int>  {
 
     companion object {
         const val MAX_DEPTH: Byte = 6
     }
 
-    private var root: Node = Node()
-    private var size = 0
+
 
     override fun put(keyword: String): Int {
         val frequency = root.place(keyword)
@@ -113,7 +112,7 @@ class Trie(): Table<String, Int>  {
         return node != null
     }
 
-    private data class Node(var frequency: Int = 0, var isValuable: Boolean = false) {
+    data class Node(var frequency: Int = 0, var isValuable: Boolean = false) {
         var word: String? = null
         val children: HashTable<Char, Node?> = HashTable()
 

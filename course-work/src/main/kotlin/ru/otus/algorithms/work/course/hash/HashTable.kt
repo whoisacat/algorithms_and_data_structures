@@ -20,7 +20,7 @@ open class HashTable<K, V>(private val maxLoadFactor: Double = 0.75, private val
         return this.size
     }
 
-    operator fun set(key: K, value: V) {
+    open operator fun set(key: K, value: V) {
         put(key, value)
     }
 
@@ -67,7 +67,8 @@ open class HashTable<K, V>(private val maxLoadFactor: Double = 0.75, private val
         val bucket = getBucketNumber(key)
         var hashTableNode: HashTableNode<K, V> = buckets[bucket] ?: return null
         while (hashTableNode.key != key && hashTableNode.next != null) hashTableNode = hashTableNode.next!!
-        return hashTableNode.value
+        if (hashTableNode.key == key) return hashTableNode.value
+        return null
     }
 
     fun contains(key: K): Boolean {
