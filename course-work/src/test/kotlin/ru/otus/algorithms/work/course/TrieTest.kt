@@ -3,6 +3,8 @@ package ru.otus.algorithms.work.course
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
+import java.util.Arrays.asList
+import java.util.Collections.singletonList
 
 class TrieTest {
 
@@ -19,7 +21,7 @@ class TrieTest {
         val trie = Trie()
         val key = "word"
 
-        trie.put(key)
+        trie.put(singletonList(key))
 
         assertEquals(1, trie.size())
         assertEquals(1, trie.getFrequency(key))
@@ -31,8 +33,7 @@ class TrieTest {
         val trie = Trie()
         val key = "word"
 
-        trie.put(key)
-        trie.put(key)
+        trie.put(asList(key, key))
 
         assertEquals(1, trie.size())
         assertEquals(2, trie.getFrequency(key))
@@ -44,8 +45,7 @@ class TrieTest {
         val key1 = "word1"
         val key2 = "word2"
 
-        trie.put(key1)
-        trie.put(key2)
+        trie.put(asList(key1, key2))
 
         assertEquals(2, trie.size())
         assertEquals(1, trie.getFrequency(key1))
@@ -60,12 +60,7 @@ class TrieTest {
         val key3 = "word3"
         val key4 = "word4"
 
-        trie.put(key1)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key3)
-        trie.put(key4)
+        trie.put(asList(key1, key2, key2, key2, key3, key4))
 
         assertEquals(true, trie.search(key3))
     }
@@ -78,11 +73,7 @@ class TrieTest {
         val key3 = "word3"
         val key4 = "word4"
 
-        trie.put(key1)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key4)
+        trie.put(asList(key1, key2, key2, key2, key4))
 
         assertEquals(false, trie.search(key3))
     }
@@ -95,11 +86,7 @@ class TrieTest {
         val key3 = "word3"
         val key4 = "word4"
 
-        trie.put(key1)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key4)
+        trie.put(asList(key1, key2, key2, key2, key4))
 
         assertEquals(3, trie.getFrequency(key2))
     }
@@ -112,11 +99,7 @@ class TrieTest {
         val key3 = "word3"
         val key4 = "word4"
 
-        trie.put(key1)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key4)
+        trie.put(asList(key1, key2, key2, key2, key4))
 
         assertEquals(true, trie.startsWith("wor"))
         assertEquals(3, trie.size())
@@ -130,23 +113,7 @@ class TrieTest {
         val key2 = "word2"
         val key4 = "word4"
 
-        trie.put(key1)
-
-        assertEquals(1, trie.size())
-
-        trie.put(key2)
-
-        assertEquals(2, trie.size())
-
-        trie.put(key2)
-
-        assertEquals(2, trie.size())
-
-        trie.put(key2)
-
-        assertEquals(2, trie.size())
-
-        trie.put(key4)
+        trie.put(asList(key1, key2, key2, key2, key4))
 
         assertEquals(3, trie.size())
     }
@@ -159,11 +126,7 @@ class TrieTest {
         val key3 = "word3"
         val key4 = "word4"
 
-        trie.put(key1)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key4)
+        trie.put(asList(key1, key2, key2, key2, key4))
 
         assertEquals(false, trie.contains("wor"))
         assertEquals(false, trie.startsWith(key3))
@@ -176,9 +139,7 @@ class TrieTest {
         val key1 = "word1"
         val key2 = "word2"
 
-        trie.put(key1)
-        trie.put(key1)
-        trie.put(key2)
+        trie.put(asList(key1, key1, key2))
 
         assertEquals(2, trie.size())
         assertEquals(2, trie.getFrequency(key1))
@@ -196,15 +157,7 @@ class TrieTest {
         val key6 = "key6"
         val key7 = "key7"
 
-        trie.put(key1)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key4)
-        trie.put(key5)
-        trie.put(key5)
-        trie.put(key6)
-        trie.put(key7)
+        trie.put(asList(key1, key2, key2, key2, key4, key5, key5, key6, key7))
 
         val oneLetterWords = trie.getNextLetterWords()
         assertEquals(2, oneLetterWords.size)
@@ -222,14 +175,7 @@ class TrieTest {
         val key6 = "key6"
         val key7 = "key7"
 
-        trie.put(key1)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key4)
-        trie.put(key5)
-        trie.put(key6)
-        trie.put(key7)
+        trie.put(asList(key1, key2, key2, key2, key4, key5, key6, key7))
 
         val words1 = trie.getNextLetterWords("wor")
         assertEquals(1, words1.size)
@@ -255,14 +201,7 @@ class TrieTest {
         val key6 = "key6"
         val key7 = "key7"
 
-        trie.put(key1)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key4)
-        trie.put(key5)
-        trie.put(key6)
-        trie.put(key7)
+        trie.put(asList(key1, key2, key2, key2, key4, key5, key6, key7))
 
         val array = trie.getNextLetterWordsInDepth(2)
         array.forEach { print(it) }
@@ -283,14 +222,7 @@ class TrieTest {
         val key6 = "key6"
         val key7 = "key7"
 
-        trie.put(key1)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key4)
-        trie.put(key5)
-        trie.put(key6)
-        trie.put(key7)
+        trie.put(asList(key1, key2, key2, key2, key4, key5, key6, key7))
 
         val array3 = trie.getNextLetterWordsInDepth(3)
         array3.forEach { print(it) }
@@ -311,14 +243,7 @@ class TrieTest {
         val key6 = "key6"
         val key7 = "key7"
 
-        trie.put(key1)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key4)
-        trie.put(key5)
-        trie.put(key6)
-        trie.put(key7)
+        trie.put(asList(key1, key2, key2, key2, key4, key5, key6, key7))
 
         val array = trie.getNextLetterWordsInDepth(4)
         array.forEach { print(it) }
@@ -339,14 +264,7 @@ class TrieTest {
         val key6 = "key6"
         val key7 = "key7"
 
-        trie.put(key1)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key2)
-        trie.put(key4)
-        trie.put(key5)
-        trie.put(key6)
-        trie.put(key7)
+        trie.put(asList(key1, key2, key2, key2, key4, key5, key6, key7))
 
         val array = trie.getNextLetterWordsInDepth(5)
         array.forEach { print(it) }
@@ -354,5 +272,13 @@ class TrieTest {
         assertFalse(array.isEmpty())
         assertEquals(6, array.size)
         assertArrayEquals(arrayOf(key5, key6, key7, key1, key2, key4), array)
+    }
+
+    @Test
+    fun suggestMoreOftenWord() {
+        val userdata = "простите,прощаю,ябидапростите,прощаю,ябидапростите,прощаю,ябидапростите,прощаю,ябидапростите,прощаю,ябида"
+        val trie = Trie()
+        trie.put(userdata.split(","))
+        assertEquals("ябидапростите", trie.getWord("яби"))
     }
 }

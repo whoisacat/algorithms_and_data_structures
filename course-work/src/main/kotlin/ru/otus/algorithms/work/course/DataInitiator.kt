@@ -13,7 +13,7 @@ fun main() {
     val file = File("./course-work/src/main/resources/dictionary.txt")
     val reader = FileReader(file, Charset.forName("UTF-8"))//Windows-1251
     val trie = Trie()
-    reader.readLines().stream()
+    trie.put(reader.readLines().stream()
         .flatMap { it.split("\\p{Punct}+".toRegex()).stream() }
         .map { it.replace(Char(160), ' ') }
         .flatMap { it.split("\\s".toRegex()).stream() }
@@ -22,8 +22,7 @@ fun main() {
         .map { it.replace("\\d".toRegex(), "") }
         .map { it.lowercase() }
         .filter {it.length > 3} // подсказки даются от трех букв
-        .peek {trie.put(it)}
-        .forEach(::println)
+        .toList())
     println(trie.size())
     val nextLetterWords = trie.getNextLetterWords()
     println("${nextLetterWords.size} ${nextLetterWords.joinToString(",")}")

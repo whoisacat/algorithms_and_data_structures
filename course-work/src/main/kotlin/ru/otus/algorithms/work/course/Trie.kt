@@ -12,7 +12,7 @@ data class Trie(private var size: Int = 0, private var root: Node = Node()): Tab
 
 
 
-    override fun put(keyword: String): Int {
+    private fun put(keyword: String): Int {
         val frequency = root.place(keyword)
         if (frequency == 1) size++
         root.updateWord(keyword, keyword, frequency)
@@ -75,6 +75,22 @@ data class Trie(private var size: Int = 0, private var root: Node = Node()): Tab
         val tmp = array[a]
         array[a] = array[b]
         array[b] = tmp
+    }
+
+    private fun quickSortByLength(array: Array<String>, left: Int = 0, right: Int = array.size - 1) {
+        if (left >= right) return
+        val m = splitByLength(array, left, right)
+        quickSortByLength(array, left, m - 1)
+        quickSortByLength(array, m + 1, right)
+    }
+
+    private fun splitByLength(array: Array<String>, left: Int, right: Int): Int {
+        val gauge = array[right].length
+        var m = left - 1
+        for (j in left .. (right))
+            if (array[j].length <= gauge)
+                swap(array, ++m, j)
+        return m
     }
 
     fun search(word: String): Boolean {
@@ -191,5 +207,17 @@ data class Trie(private var size: Int = 0, private var root: Node = Node()): Tab
 
     override fun toString(): String {
         return "{trie size: $size root: $root}"
+    }
+
+    override fun put(keywords: List<String>) {
+        keywords.stream()
+            .sorted { it1: String, it2: String ->
+                return@sorted if (it1.length > it2.length)  1 else if (it2.length > it1.length) -1 else 0 }
+            .forEach(::put)
+    }
+
+    override fun put(keywords: Array<String>) {
+        quickSortByLength(keywords)
+        for (word in keywords) put(word)
     }
 }
