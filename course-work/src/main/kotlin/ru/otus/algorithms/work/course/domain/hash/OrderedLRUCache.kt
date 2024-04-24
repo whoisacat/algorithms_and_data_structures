@@ -1,10 +1,10 @@
-package ru.otus.algorithms.work.course.hash
+package ru.otus.algorithms.work.course.domain.hash
 
 import javax.naming.OperationNotSupportedException
 
 class OrderedLRUCache<K, V>(val cacheSize: Int = 10):
         HashTable<K, OrderedLRUCache.CacheValue<V>>(maxLoadFactor = 1.0, minLoadFactor = 1 / cacheSize.toDouble()),
-        Cache<K, V> {
+    Cache<K, V> {
 
     data class CacheValue<CV>(var order: Int, val value: CV)
 

@@ -1,16 +1,14 @@
-package ru.otus.algorithms.work.course
+package ru.otus.algorithms.work.course.domain
 
-import ru.otus.algorithms.work.course.hash.HashTable
+import ru.otus.algorithms.work.course.domain.hash.HashTable
 import java.lang.RuntimeException
 import java.util.function.Supplier
 
-data class Trie(private var size: Int = 0, private var root: Node = Node()): Table<String, Int>  {
+data class Trie(private var size: Int = 0, private var root: Node = Node()): Table<String, Int> {
 
     companion object {
         const val MAX_DEPTH: Byte = 6
     }
-
-
 
     private fun put(keyword: String): Int {
         val frequency = root.place(keyword)
@@ -19,7 +17,7 @@ data class Trie(private var size: Int = 0, private var root: Node = Node()): Tab
         return frequency
     }
 
-    fun getNextLetterWords(keyword: String = ""): Array<String> {
+    override fun getNextLetterWords(keyword: String): Array<String> {
         val node = findNode(keyword)
         val factorArray = FactorArray(4)
         if (node.isValuable) factorArray.add(keyword)
@@ -31,7 +29,7 @@ data class Trie(private var size: Int = 0, private var root: Node = Node()): Tab
         return content
     }
 
-    fun getNextLetterWordsInDepth(depth: Byte): Array<String> {
+    override fun getNextLetterWordsInDepth(depth: Byte): Array<String> {
         if (depth > MAX_DEPTH) throw RuntimeException("max depth is $MAX_DEPTH")
         if (depth < 1) throw RuntimeException("min depth is 1")
         var array: Array<String> = arrayOf("")
@@ -93,7 +91,7 @@ data class Trie(private var size: Int = 0, private var root: Node = Node()): Tab
         return m
     }
 
-    fun search(word: String): Boolean {
+    override fun search(word: String): Boolean {
         var node = root
         for (char in word) {
             if (node.children[char] == null) return false
@@ -111,7 +109,7 @@ data class Trie(private var size: Int = 0, private var root: Node = Node()): Tab
         return node.frequency
     }
 
-    fun getWord(key: String): String? {
+    override fun getWord(key: String): String? {
         var node = root
         for (char in key) {
             if (node.children[char] == null) return null
@@ -120,7 +118,7 @@ data class Trie(private var size: Int = 0, private var root: Node = Node()): Tab
         return node.word
     }
 
-    fun startsWith(prefix: String): Boolean {
+    override fun startsWith(prefix: String): Boolean {
         var node: Node? = root
         for (char in prefix) {
             node = node?.children?.get(char) ?: return false

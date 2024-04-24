@@ -1,4 +1,4 @@
-package ru.otus.algorithms.work.course
+package ru.otus.algorithms.work.course.domain
 
 
 class FactorArray (private val factor: Int) {
@@ -49,7 +49,6 @@ class FactorArray (private val factor: Int) {
             }
         }
         size--
-        @Suppress("UNCHECKED_CAST")
         return item as String
     }
 
@@ -62,11 +61,12 @@ class FactorArray (private val factor: Int) {
     private fun trim() {
         val copy = Array<String?>(size) {null}
         System.arraycopy(content, 0, copy, 0, size)
-        content = copy;
+        content = copy
     }
 
     fun getContent(): Array<String> {
         trim()
+        @Suppress("UNCHECKED_CAST")
         return content as Array<String>
     }
 

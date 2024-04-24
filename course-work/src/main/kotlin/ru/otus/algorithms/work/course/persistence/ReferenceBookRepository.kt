@@ -1,6 +1,6 @@
 package ru.otus.algorithms.work.course.persistence
 
-import ru.otus.algorithms.work.course.Trie
+import ru.otus.algorithms.work.course.domain.Trie
 
 interface ReferenceBookRepository {
     fun findByUserId(userId: Long): Trie

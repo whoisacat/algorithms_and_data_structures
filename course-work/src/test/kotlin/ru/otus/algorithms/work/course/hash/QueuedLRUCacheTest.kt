@@ -3,6 +3,7 @@ package ru.otus.algorithms.work.course.hash
 import org.junit.jupiter.api.Test
 
 import org.junit.jupiter.api.Assertions.*
+import ru.otus.algorithms.work.course.domain.hash.QueuedLRUCache
 
 class QueuedLRUCacheTest {
 

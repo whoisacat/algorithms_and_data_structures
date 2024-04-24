@@ -1,4 +1,4 @@
-package ru.otus.algorithms.work.course.hash
+package ru.otus.algorithms.work.course.domain.hash
 
 import java.lang.Exception
 import java.lang.RuntimeException
@@ -6,7 +6,7 @@ import javax.naming.OperationNotSupportedException
 
 class QueuedLRUCache<K, V>(val cacheSize: Int = 10):
     HashTable<K, QueuedLRUCache.KeyValueNode<K, V>>(maxLoadFactor = 1.0, minLoadFactor = 1 / cacheSize.toDouble()),
-        Cache<K,V> {
+    Cache<K, V> {
 
     val lock = Any()
     var firstNode: KeyValueNode<K, V>? = null
@@ -70,10 +70,10 @@ class QueuedLRUCache<K, V>(val cacheSize: Int = 10):
     override fun cache(key: K, value: V): V {
         val existing = find(key)
         if (existing != null) {
-            if (existing == value) {
-                return existing
+            return if (existing == value) {
+                existing
             } else {
-                return super.put(key, KeyValueNode(key, value)).value
+                super.put(key, KeyValueNode(key, value)).value
             }
         } else {
             val node = KeyValueNode(key, value)

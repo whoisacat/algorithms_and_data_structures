@@ -1,5 +1,6 @@
 package ru.otus.algorithms.work.course
 
+import ru.otus.algorithms.work.course.domain.Trie
 import java.io.File
 import java.io.FileReader
 import java.io.FileWriter

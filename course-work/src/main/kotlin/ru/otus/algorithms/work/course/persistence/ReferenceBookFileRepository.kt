@@ -1,9 +1,9 @@
 package ru.otus.algorithms.work.course.persistence
 
 import org.springframework.stereotype.Component
-import ru.otus.algorithms.work.course.Trie
-import ru.otus.algorithms.work.course.hash.Cache
-import ru.otus.algorithms.work.course.hash.QueuedLRUCache
+import ru.otus.algorithms.work.course.domain.Trie
+import ru.otus.algorithms.work.course.domain.hash.Cache
+import ru.otus.algorithms.work.course.domain.hash.QueuedLRUCache
 import ru.otus.algorithms.work.course.referentialBookPath
 import ru.otus.algorithms.work.course.referentialBookSeparator
 import ru.otus.algorithms.work.course.resourcesPath

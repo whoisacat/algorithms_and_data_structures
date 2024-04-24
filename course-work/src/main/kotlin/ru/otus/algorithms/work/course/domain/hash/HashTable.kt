@@ -1,4 +1,4 @@
-package ru.otus.algorithms.work.course.hash
+package ru.otus.algorithms.work.course.domain.hash
 
 import org.jetbrains.annotations.NotNull
 import java.lang.Exception

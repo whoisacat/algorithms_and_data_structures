@@ -2,7 +2,7 @@ package ru.otus.algorithms.work.course.service
 
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
-import ru.otus.algorithms.work.course.Trie
+import ru.otus.algorithms.work.course.domain.Trie
 import ru.otus.algorithms.work.course.persistence.ReferenceBookRepository
 import ru.otus.algorithms.work.course.referentialBookSeparator
 import java.io.InputStream

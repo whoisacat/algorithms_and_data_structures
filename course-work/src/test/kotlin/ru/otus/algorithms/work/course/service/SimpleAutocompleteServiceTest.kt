@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions.*
 
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
-import ru.otus.algorithms.work.course.Trie
+import ru.otus.algorithms.work.course.domain.Trie
 import ru.otus.algorithms.work.course.persistence.ReferenceBookRepository
 
 class SimpleAutocompleteServiceTest {

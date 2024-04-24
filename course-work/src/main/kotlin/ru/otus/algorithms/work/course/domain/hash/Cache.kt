@@ -1,4 +1,4 @@
-package ru.otus.algorithms.work.course.hash
+package ru.otus.algorithms.work.course.domain.hash
 
 interface Cache<K, V> {
 
