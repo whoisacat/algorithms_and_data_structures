@@ -109,10 +109,17 @@ public class BracketsValidator {
     }
 
     public static void main(String[] args) {
-        BracketsValidator sol = new BracketsValidator();
-        String s = "()";
-        System.out.println(sol.isValidOfMine(s));
-        System.out.println(sol.isValidMemOptimised(s));
-        System.out.println(sol.isValidRuntimeOptimized(s));
+//        BracketsValidator sol = new BracketsValidator();
+//        String s = "()";
+//        System.out.println(sol.isValidOfMine(s));
+//        System.out.println(sol.isValidMemOptimised(s));
+//        System.out.println(sol.isValidRuntimeOptimized(s));
+
+        String s = "uveubub;qru uehvh4um4";
+        String[] split = s.split("");
+        System.out.println(split.length);
+        for (String s1 : split) {
+            System.out.println(s1);
+        }
     }
 }
